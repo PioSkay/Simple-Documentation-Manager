@@ -1,0 +1,21 @@
+{% extends "layout.html" %}
+{% block title %}
+    Main page
+{% endblock %}
+{% block main %}
+<link href="/static/documentation-page.css" rel="stylesheet">
+    <div id="mainarea">
+        <h1>
+            {{out[2]|safe}}
+        </h1>
+        <p>
+            {{out[3]|safe}}
+        </p>
+        <div class="cpp_code">
+            {{readme|safe}}
+        </div>
+        <div class="cpp_code">
+            {{out[5]|safe}}
+        </div>
+    </div>
+{% endblock %}

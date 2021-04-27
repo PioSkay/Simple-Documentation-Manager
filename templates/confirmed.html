@@ -1,0 +1,28 @@
+{% extends "layout.html" %}
+{% block title %}
+    Main page.
+{% endblock %}
+{% block main %}
+    <link href="/static/confirm.css" rel="stylesheet">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6">
+                <div class="card">
+                    {% if success == true %}
+                    <div class="box">
+                        <h1>EMAIL CONFIRMED</h1>
+                        <p class="text-muted"> You completed the verification process. Welcome to the MEP! </p>
+                        <input class="popup" type="submit" name="" value="Main Page" href="/", id="submit">
+                    </div>
+                    {% else %}
+                    <div class="box">
+                        <h1>{{msg}}</h1>
+                        <p class="text-muted"> The confirmation link is invalid or has expired </p> 
+                        <input class="popup" type="submit" name="" value="Login" href="/login", id="submit">
+                    </div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

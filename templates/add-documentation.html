@@ -1,0 +1,43 @@
+{% extends "layout.html" %}
+{% block title %}
+    Add documentation
+{% endblock %}
+{% block main %}
+<form action="/add-documentation" method="post">
+    <link href="/static/login-page.css" rel="stylesheet">
+    <div id="mainarea">
+        <h1 id = "msg">New documentation</h1>
+        <p><strong id = "msg">Title:</strong> <span id = "span1" class="textarea" name="title" role="textbox" contenteditable></span></p>
+        <p><strong id = "msg">Discription:</strong> <span id = "span4" class="textarea" role="textbox" contenteditable></span></p>
+        <p><strong id = "msg">README:</strong> <span id = "span2" class="textarea" role="textbox" contenteditable></span></p>
+        <p><strong id = "msg">Code:</strong> <span id = "span3" class="textarea" role="textbox" contenteditable></span></p>
+        <input class="popup" type="submit" name="" value="Add" href="#", id="submit">
+        <div class="popup"><span class="popuptext" id="myPopup">Documentation Added</span></div>
+    </div>
+    <script type="text/javascript">
+        $(document).ready(function(){
+            $('form').on('submit', function(){
+                //Inserting a space when it is needed.
+                var new_cnt = document.getElementById("span2").innerHTML;
+                new_cnt = new_cnt.replace(/<div>/g, "");
+                new_cnt = new_cnt.replace(/<\/div>/g, "\n");
+                var new_code = document.getElementById("span3").innerHTML;
+                //-----------------------------------
+                $.ajax({
+                    data : {
+                        title : $('#span1').text(),
+                        readme : new_cnt,
+                        code : document.getElementById("span3").innerHTML,
+                        discription : $('#span4').text()
+                    },
+                    type: 'POST',
+                    url: '/add-documentation'
+                }).done(function(data){
+                    location.replace("/my-documentations")
+                });
+                event.preventDefault();
+            });
+        });
+    </script>
+</form>
+{% endblock %}

@@ -1,0 +1,37 @@
+{% extends "layout.html" %}
+{% block title %}
+    Main page.
+{% endblock %}
+{% block main %}
+    <link href="/static/confirm.css" rel="stylesheet">
+    <form action="/confirm" method="post">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="card">
+                        <div class="box">
+                            <h1>CONFIRM</h1>
+                            <p class="text-muted"> In order to access your account you need to confirm your email!</p> 
+                            <a>Your email adress: {{ email }}</a>
+                            <div id = "confButton">
+                                <a class="btn btn-primary btn-lg" onclick="myFunction()" id="resend">Resend Email</a>
+                            </div>
+                            <input class="popup" type="submit" name="submit" value="Login" href="#", id="submit">
+                            <div class="popup" onclick="myFunction()"><span class="popuptext" id="myPopup">Email Send!</span></div>
+
+                            <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"> </script>
+                            <script type=text/javascript>
+                                function myFunction() {
+                                    var popup = document.getElementById("myPopup");
+                                    popup.classList.toggle("show");
+                                    $.getJSON('/send-confirmation-mail', {}, function(data) {}); 
+                                    return false;
+                                }
+                            </script>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+{% endblock %}

@@ -1,0 +1,64 @@
+{% extends "layout.html" %}
+{% block title %}
+    Main page
+{% endblock %}
+{% block main %}
+<form action="/my-documentations" method="post">
+    <div id="mainarea">
+        <h1>Your documentations</h1>
+        {% if first == true %}
+            <p>You dont have any documentation yet :(</p>
+        {% else %}
+            {% for doc in output %}
+                <div class="doc" id="doc{{doc[0]}}">
+                    <h2>
+                        {{ doc[2] }}
+                    </h2>
+                    <p class="text-muted">
+                        {{ doc[3] }}
+                    </p>
+                    <button class="view" name="submit" id="v{{doc[0]}}">View</button>
+                    <button class="delete" id="{{doc[0]}}">Delete</button>
+                </div>
+                <script>
+                    $(document).ready(function(){
+                        $("#{{doc[0]}}").click(function(){
+                            click = true;
+                            $.ajax({
+                                data : {
+                                    mode : "delete",
+                                    value : "{{doc[0]}}"
+                                },
+                                type: 'POST',
+                                url: '/my-documentations'
+                            }).done(function(data){
+                                if(data.error){
+                                    console.log("Missing argument");
+                                } else {
+                                    location.replace("/my-documentations")
+                                }
+                            });
+                            event.preventDefault();
+                        });
+                        $("#v{{doc[0]}}").click(function(){
+                            click = true;
+                            $.ajax({
+                                data : {
+                                    mode : "redirect",
+                                    value : "{{doc[0]}}"
+                                },
+                                type: 'POST',
+                                url: '/my-documentations',
+                                success:function(response){
+                                    document.write(response); 
+                                }
+                            });
+                            event.preventDefault();
+                        });
+                    });
+                </script>
+            {% endfor %}
+        {% endif %}
+    </div>
+</form>
+{% endblock %}
